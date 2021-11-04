@@ -72,7 +72,7 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     }
 })
 function heroStart () {
-	
+    info.startCountdown(10)
 }
 info.onCountdownEnd(function () {
     info.changeLifeBy(-1)
@@ -228,6 +228,7 @@ Treasure = sprites.create(img`
     `, SpriteKind.Projectile)
 tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
 info.setLife(3)
+heroStart()
 game.onUpdate(function () {
     if (Fishes.vx < 0) {
         Fishes.setImage(img`
