@@ -72,7 +72,9 @@ controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
 function heroStart () {
     info.startCountdown(20)
     tiles.placeOnTile(Hero, tiles.getTileLocation(2, 2))
+    Treasure.follow(Hero, 0)
     tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
+    Treasure.follow(Hero, 0)
 }
 info.onCountdownEnd(function () {
     info.changeLifeBy(-1)
@@ -151,12 +153,12 @@ function SetupFish4 () {
 scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.chestClosed, function (sprite, location) {
     tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
     info.changeScoreBy(1)
+    tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
     Treasure.follow(Hero, 0)
-    heroStart()
+    info.startCountdown(20)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
-    Treasure.destroy()
     heroStart()
 })
 let Fishes4: Sprite = null
