@@ -152,7 +152,7 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.chestClosed, function
     tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
     info.changeScoreBy(1)
     Treasure.follow(Hero, 0)
-    info.startCountdown(10)
+    heroStart()
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
