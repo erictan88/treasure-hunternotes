@@ -50,29 +50,29 @@ function SetupFish () {
     tiles.placeOnTile(Fishes, tiles.getTileLocation(5, 5))
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Hero.tileKindAt(TileDirection.Center, assets.tile`myTile`)) {
-        Hero.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . f f f . . . . . . . 
-            . . f f f f f f e f . . . . . . 
-            . f f e f e f e e e f . . . . . 
-            . f e e f 2 f 4 4 e f 4 e f . . 
-            f e e e f 2 f 4 d e e d d e f . 
-            f e e f e 2 f e 4 4 e d d e f f 
-            f e e f e f f b 1 d 4 e e f f f 
-            f e f e 2 f e f f d 4 2 2 4 f f 
-            f f 2 e 2 f e 4 d d 4 2 2 5 f . 
-            f 2 2 e 2 f e 4 d d e 2 2 5 f . 
-            . f 2 e 2 e f e e f f f f f . . 
-            . . f f e 2 f e f . . . . . . . 
-            . . . . f f f f . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-    }
+    Hero.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . f f f . . . . . . . 
+        . . f f f f f f e f . . . . . . 
+        . f f e f e f e e e f . . . . . 
+        . f e e f 2 f 4 4 e f 4 e f . . 
+        f e e e f 2 f 4 d e e d d e f . 
+        f e e f e 2 f e 4 4 e d d e f f 
+        f e e f e f f b 1 d 4 e e f f f 
+        f e f e 2 f e f f d 4 2 2 4 f f 
+        f f 2 e 2 f e 4 d d 4 2 2 5 f . 
+        f 2 2 e 2 f e 4 d d e 2 2 5 f . 
+        . f 2 e 2 e f e e f f f f f . . 
+        . . f f e 2 f e f . . . . . . . 
+        . . . . f f f f . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        `)
 })
 function heroStart () {
-    info.startCountdown(10)
+    info.startCountdown(20)
+    tiles.placeOnTile(Hero, tiles.getTileLocation(2, 2))
+    tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
 }
 info.onCountdownEnd(function () {
     info.changeLifeBy(-1)
@@ -80,26 +80,24 @@ info.onCountdownEnd(function () {
     heroStart()
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (Hero.tileKindAt(TileDirection.Center, assets.tile`myTile`)) {
-        Hero.setImage(img`
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . . . . . . . . . . 
-            . . . . . . . f f f . . . . . . 
-            . . . . . . f e f f f f f f . . 
-            . . . . . f e e e f e f e f f . 
-            . . f e 4 f e 4 4 f 2 f e e f . 
-            . f e d d e e d 4 f 2 f e e e f 
-            f f e d d e 4 4 e f 2 e f e e f 
-            f f f e e 4 d 1 b 3 f e f e e f 
-            f f 4 2 2 4 d f f e f 2 e f e f 
-            . f 5 2 2 4 d d 4 e f 2 e 2 f f 
-            . f 5 2 2 e d d 4 e f 2 e 2 2 f 
-            . . f f f f f e e f e 2 e 2 f . 
-            . . . . . . . f e f 2 e f f . . 
-            . . . . . . . . f f f f . . . . 
-            . . . . . . . . . . . . . . . . 
-            `)
-    }
+    Hero.setImage(img`
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . . . . . . . . . . 
+        . . . . . . . f f f . . . . . . 
+        . . . . . . f e f f f f f f . . 
+        . . . . . f e e e f e f e f f . 
+        . . f e 4 f e 4 4 f 2 f e e f . 
+        . f e d d e e d 4 f 2 f e e e f 
+        f f e d d e 4 4 e f 2 e f e e f 
+        f f f e e 4 d 1 b 3 f e f e e f 
+        f f 4 2 2 4 d f f e f 2 e f e f 
+        . f 5 2 2 4 d d 4 e f 2 e 2 f f 
+        . f 5 2 2 e d d 4 e f 2 e 2 2 f 
+        . . f f f f f e e f e 2 e 2 f . 
+        . . . . . . . f e f 2 e f f . . 
+        . . . . . . . . f f f f . . . . 
+        . . . . . . . . . . . . . . . . 
+        `)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Projectile, function (sprite, otherSprite) {
     Treasure.follow(Hero)
@@ -154,6 +152,7 @@ scene.onOverlapTile(SpriteKind.Projectile, sprites.dungeon.chestClosed, function
     tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
     info.changeScoreBy(1)
     Treasure.follow(Hero, 0)
+    info.startCountdown(10)
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     info.changeLifeBy(-1)
@@ -185,7 +184,6 @@ Hero = sprites.create(img`
     . . . . . f f f f f f . . . . . 
     . . . . . f f . . f f . . . . . 
     `, SpriteKind.Player)
-tiles.placeOnTile(Hero, tiles.getTileLocation(2, 2))
 scene.cameraFollowSprite(Hero)
 Hero.setFlag(SpriteFlag.ShowPhysics, true)
 SetupFish()
@@ -226,9 +224,40 @@ Treasure = sprites.create(img`
     ................
     ................
     `, SpriteKind.Projectile)
-tiles.placeOnRandomTile(Treasure, assets.tile`myTile`)
 info.setLife(3)
 heroStart()
+game.onUpdate(function () {
+    if (Hero.tileKindAt(TileDirection.Center, assets.tile`myTile`)) {
+        Hero.ay = 20
+        controller.moveSprite(Hero, 100, 100)
+    } else {
+        Hero.ay = 200
+        controller.moveSprite(Hero, 100, 0)
+    }
+    if (Hero.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && Hero.tileKindAt(TileDirection.Top, assets.tile`transparency16`)) {
+        Hero.vy = 20
+    }
+    if (Hero.tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0)) {
+        Hero.setImage(img`
+            . . . . . . f f f f . . . . . . 
+            . . . . f f f 2 2 f f f . . . . 
+            . . . f f f 2 2 2 2 f f f . . . 
+            . . f f f e e e e e e f f f . . 
+            . . f f e 2 2 2 2 2 2 e e f . . 
+            . . f e 2 f f f f f f 2 e f . . 
+            . . f f f f e e e e f f f f . . 
+            . f f e f b f 4 4 f b f e f f . 
+            . f e e 4 1 f d d f 1 4 e e f . 
+            . . f e e d d d d d d e e f . . 
+            . . . f e e 4 4 4 4 e e f . . . 
+            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
+            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
+            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
+            . . . . . f f f f f f . . . . . 
+            . . . . . f f . . f f . . . . . 
+            `)
+    }
+})
 game.onUpdate(function () {
     if (Fishes.vx < 0) {
         Fishes.setImage(img`
@@ -384,38 +413,6 @@ game.onUpdate(function () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `)
-    }
-})
-game.onUpdate(function () {
-    if (Hero.tileKindAt(TileDirection.Center, assets.tile`myTile`)) {
-        Hero.ay = 20
-        controller.moveSprite(Hero, 100, 100)
-    } else {
-        Hero.ay = 200
-        controller.moveSprite(Hero, 100, 0)
-    }
-    if (Hero.tileKindAt(TileDirection.Bottom, assets.tile`myTile`) && Hero.tileKindAt(TileDirection.Top, assets.tile`transparency16`)) {
-        Hero.vy = 20
-    }
-    if (Hero.tileKindAt(TileDirection.Bottom, sprites.dungeon.floorLight0)) {
-        Hero.setImage(img`
-            . . . . . . f f f f . . . . . . 
-            . . . . f f f 2 2 f f f . . . . 
-            . . . f f f 2 2 2 2 f f f . . . 
-            . . f f f e e e e e e f f f . . 
-            . . f f e 2 2 2 2 2 2 e e f . . 
-            . . f e 2 f f f f f f 2 e f . . 
-            . . f f f f e e e e f f f f . . 
-            . f f e f b f 4 4 f b f e f f . 
-            . f e e 4 1 f d d f 1 4 e e f . 
-            . . f e e d d d d d d e e f . . 
-            . . . f e e 4 4 4 4 e e f . . . 
-            . . e 4 f 2 2 2 2 2 2 f 4 e . . 
-            . . 4 d f 2 2 2 2 2 2 f d 4 . . 
-            . . 4 4 f 4 4 5 5 4 4 f 4 4 . . 
-            . . . . . f f f f f f . . . . . 
-            . . . . . f f . . f f . . . . . 
             `)
     }
 })
